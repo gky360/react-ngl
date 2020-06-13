@@ -1,1 +1,2 @@
-export * from './Hello';
+export * from './Hello/Hello';
+export * from './Stage/Stage';
