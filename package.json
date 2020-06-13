@@ -1,18 +1,16 @@
 {
   "name": "react-ngl",
-  "version": "0.0.1",
+  "version": "0.0.1-dev.1",
   "private": true,
   "description": "React wrapper for ngl",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">= 12.13.0",
+    "node": ">= 12.16.0",
     "npm": ">= 6.12.0"
   },
   "scripts": {
     "start": "npm run storybook",
-    "check": "npm run lint && npm run test",
-    "check:ci": "npm run lint && npm run test:ci",
     "lint": "eslint --max-warnings=0 --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
