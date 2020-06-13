@@ -54,7 +54,7 @@ jobs:
 
       - run: npm run deploy-storybook:ci
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
 
   publish-npm:
     needs: [test]
