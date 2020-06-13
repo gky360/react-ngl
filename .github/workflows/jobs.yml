@@ -1,0 +1,74 @@
+name: Jobs
+
+on:
+  schedule:
+    - cron: "43 21 * * *"
+  push:
+    branches:
+      - "**"
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+**"
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - windows-latest
+          - macos-latest
+          - ubuntu-latest
+        node-version:
+          - 12.16.0
+
+    name: Test (${{ matrix.os }} ${{ matrix.node-version }})
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ mattix.node-version }}
+      - run: npm ci
+
+      - run: npm run lint
+      - run: npm run test:ci
+      - run: npm run build
+      - run: npm publish --dry-run
+
+  publish-npm:
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.16.0
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish --dry-run
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+  publish-gpr:
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.16.0
+          registry-url: https://npm.pkg.github.com/
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish --dry-run
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
