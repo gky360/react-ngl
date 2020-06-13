@@ -2,6 +2,7 @@
 /.github/
 /.storybook/
 /examples/
+/src/
 /storybook-static/
 *.test.*
 *.stories.*

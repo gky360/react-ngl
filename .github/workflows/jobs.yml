@@ -16,9 +16,9 @@ jobs:
       fail-fast: true
       matrix:
         os:
-          - windows-latest
-          - macos-latest
           - ubuntu-latest
+          - macos-latest
+          - windows-latest
         node_version:
           - 12.16.0
 
@@ -88,7 +88,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node_version: 12.16.0
-          registry-url: https://npm.pkg.github.com/
+          registry-url: https://npm.pkg.github.com/gky360
       - run: npm ci
 
       - run: npm run build
