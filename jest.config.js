@@ -5,5 +5,9 @@ module.exports = {
   moduleNameMapper: {
     '\\.(s?css|less)$': '<rootDir>/__mocks__/styleMock.js',
   },
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/examples/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/examples/',
+    '<rootDir>/storybook-static/',
+  ],
 };

@@ -4,3 +4,4 @@ Dockerfile*
 node_modules
 /dist/
 /examples/
+/storybook-static/

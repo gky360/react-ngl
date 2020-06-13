@@ -19,8 +19,11 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rm -rf ./dist",
+    "prepublish": "npm run build",
     "storybook": "start-storybook -p 6006",
-    "build:storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages --out=storybook-static",
+    "deploy-storybook:ci": "npm run deploy-storybook -- --ci --host-token-env-variable=GITHUB_TOKEN"
   },
   "repository": {
     "type": "git",
@@ -44,6 +47,7 @@
     "@storybook/preset-scss": "^1.0.2",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^5.3.18",
+    "@storybook/storybook-deployer": "^2.8.6",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.2.2",
     "@types/react": "^16.9.35",

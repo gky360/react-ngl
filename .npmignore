@@ -2,5 +2,6 @@
 /.github/
 /.storybook/
 /examples/
+/storybook-static/
 *.test.*
 *.stories.*

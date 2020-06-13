@@ -1,4 +1,5 @@
 /.github/
 /dist/
 /examples/
+/storybook-static/
 !/.storybook/
