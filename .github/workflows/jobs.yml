@@ -19,25 +19,29 @@ jobs:
           - windows-latest
           - macos-latest
           - ubuntu-latest
-        node-version:
+        node_version:
           - 12.16.0
 
-    name: Test (${{ matrix.os }} ${{ matrix.node-version }})
+    name: Test (${{ matrix.os }} ${{ matrix.node_version }})
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node_version: ${{ matrix.node_version }}
       - run: npm ci
 
       - run: npm run lint
       - run: npm run test:ci
+      - run: npm run build
       - run: npm run deploy-storybook:ci -- --dry-run
         if: matrix.os == 'ubuntu-latest'
       - run: npm publish --dry-run
         if: matrix.os == 'ubuntu-latest'
+      - run: 'CHANGED=$(git status --porcelain) && [[ -z "$CHANGED" ]]'
+        if: matrix.os == 'ubuntu-latest'
+        name: Assert no git diff
 
   deploy-storybook:
     needs: [test]
@@ -48,12 +52,12 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12.16.0
+          node_version: 12.16.0
       - run: npm ci
 
       - run: npm run deploy-storybook:ci
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
 
   publish-npm:
     needs: [test]
@@ -64,7 +68,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12.16.0
+          node_version: 12.16.0
           registry-url: https://registry.npmjs.org/
       - run: npm ci
 
@@ -83,7 +87,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12.16.0
+          node_version: 12.16.0
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
 
