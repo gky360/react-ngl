@@ -1,0 +1,7 @@
+/__mocks__/
+/.github/
+/.storybook/
+/examples/
+/storybook-static/
+*.test.*
+*.stories.*

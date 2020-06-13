@@ -1,0 +1,57 @@
+parser: '@typescript-eslint/parser'
+env:
+  browser: true
+  es6: true
+  node: true
+extends:
+  - airbnb
+  - airbnb/hooks
+  - plugin:import/typescript
+  - plugin:@typescript-eslint/eslint-recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:prettier/recommended
+  - prettier
+  - prettier/@typescript-eslint
+  - prettier/react
+rules:
+  react/jsx-filename-extension:
+    - error
+    - extensions:
+        - '.jsx'
+        - '.tsx'
+  import/extensions:
+    - error
+    - '.ts': never
+      '.tsx': never
+      '.d.ts': never
+      '.js': never
+      '.jsx': never
+  jsx-a11y/label-has-associated-control:
+    - error
+    - assert: either
+  import/no-default-export: error
+  import/prefer-default-export: off
+overrides:
+  - files:
+      - '**/*.tsx'
+    rules:
+      react/prop-types: off
+  - files:
+      - '**/*.stories.tsx'
+    rules:
+      import/no-default-export: off
+  - files:
+      - '**/*.js'
+      - '**/*.jsx'
+      - '**/*.stories.tsx'
+    rules:
+      '@typescript-eslint/explicit-function-return-type': off
+  - files:
+      - '.storybook/*.js'
+      - '**/*.test.js'
+      - '**/*.test.jsx'
+      - '**/*.test.ts'
+      - '**/*.test.tsx'
+      - '**/*.stories.tsx'
+    rules:
+      import/no-extraneous-dependencies: off

@@ -1,0 +1,7 @@
+/.git/
+/.github/
+Dockerfile*
+node_modules
+/dist/
+/examples/
+/storybook-static/

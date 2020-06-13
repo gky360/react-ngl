@@ -1,3 +1,11 @@
+/dist/
+/storybook-static/
+
+
+#
+# Node
+#
+
 # Logs
 logs
 *.log
