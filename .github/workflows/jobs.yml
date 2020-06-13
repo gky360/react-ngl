@@ -49,6 +49,7 @@ jobs:
           node-version: 12.16.0
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+
       - run: npm run build
       - run: npm publish --dry-run
       - run: npm publish
@@ -67,6 +68,7 @@ jobs:
           node-version: 12.16.0
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
+
       - run: npm run build
       - run: npm publish --dry-run
       - run: npm publish
