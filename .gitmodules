@@ -1,3 +1,3 @@
 [submodule "modules/ngl"]
 	path = modules/ngl
-	url = ssh://git@github.com/arose/ngl.git
+	url = https://github.com/arose/ngl.git
