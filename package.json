@@ -1,6 +1,6 @@
 {
   "name": "react-ngl",
-  "version": "0.0.1-dev.1",
+  "version": "0.0.1-alpha.1",
   "private": true,
   "description": "React wrapper for ngl",
   "main": "dist/index.js",
