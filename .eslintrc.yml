@@ -6,13 +6,9 @@ env:
 extends:
   - airbnb
   - airbnb/hooks
-  - eslint:recommended
-  - plugin:import/errors
-  - plugin:import/warnings
   - plugin:import/typescript
   - plugin:@typescript-eslint/eslint-recommended
   - plugin:@typescript-eslint/recommended
-  - plugin:react/recommended
   - plugin:prettier/recommended
   - prettier
   - prettier/@typescript-eslint
@@ -51,6 +47,7 @@ overrides:
     rules:
       '@typescript-eslint/explicit-function-return-type': off
   - files:
+      - '.storybook/*.js'
       - '**/*.test.js'
       - '**/*.test.jsx'
       - '**/*.test.ts'
