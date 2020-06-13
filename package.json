@@ -15,7 +15,7 @@
     "test": "jest",
     "test:ci": "npm run test -- --verbose --ci",
     "test:watch": "npm run test -- --watch",
-    "postinstall": "npm run setup-ngl --",
+    "prepare": "npm run setup-ngl --",
     "setup-ngl": "cd modules/ngl && npm ci && npm run dts",
     "prebuild": "npm run clean --",
     "build": "tsc",
