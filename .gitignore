@@ -1,3 +1,10 @@
+.jest-test-results.json
+
+
+#
+# Node
+#
+
 # Logs
 logs
 *.log

@@ -1,0 +1,5 @@
+/__mocks__/
+/.storybook/
+/examples/
+*.test.*
+*.stories.*
