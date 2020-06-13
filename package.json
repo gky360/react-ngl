@@ -16,12 +16,10 @@
     "test": "jest",
     "test:ci": "npm run test -- --verbose --ci",
     "test:watch": "npm run test -- --watch",
-    "test:out": "npm run test -- --json --outputFile .jest-test-results.json",
     "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "storybook": "start-storybook -p 6006",
-    "prebuild:storybook": "npm run test:out",
     "build:storybook": "build-storybook"
   },
   "repository": {
