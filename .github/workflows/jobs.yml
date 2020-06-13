@@ -39,6 +39,8 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
       - run: npm publish --dry-run
         if: matrix.os == 'ubuntu-latest'
+      - run: "[[ ! `git status --porcelain` ]]"
+        name: Assert no git diff
 
   deploy-storybook:
     needs: [test]
