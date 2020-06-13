@@ -14,7 +14,7 @@
     "lint": "eslint --max-warnings=0 --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
-    "test:ci": "CI=true npm run test -- --verbose --ci",
+    "test:ci": "npm run test -- --verbose --ci",
     "test:watch": "npm run test -- --watch",
     "test:out": "npm run test -- --json --outputFile .jest-test-results.json",
     "prebuild": "npm run clean",
