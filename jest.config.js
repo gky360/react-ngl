@@ -8,6 +8,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/examples/',
+    '<rootDir>/modules/',
     '<rootDir>/storybook-static/',
   ],
 };
