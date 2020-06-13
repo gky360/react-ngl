@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: ${{ mattix.node-version }}
+          node-version: ${{ matrix.node-version }}
       - run: npm ci
 
       - run: npm run lint
