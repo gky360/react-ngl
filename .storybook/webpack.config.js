@@ -3,7 +3,7 @@
 const path = require('path');
 
 module.exports = async ({ config }) => {
-  config.module.rules.push({
+  config.module.rules.unshift({
     test: /\.(ts|tsx)$/,
     use: [
       {
