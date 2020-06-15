@@ -5,8 +5,8 @@ import { Viewer } from './Viewer';
 
 export interface StageProps {
   parameters?: Partial<NGL.StageParameters>;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
 }
 
 export const Stage: React.FC<StageProps> = ({
@@ -39,14 +39,21 @@ export const Stage: React.FC<StageProps> = ({
     }
   }, [parameters, stageElement]);
 
+  useEffect(() => {
+    if (!stageRef.current) {
+      // eslint-disable-next-line no-console
+      console.warn('NGL Stage is not created yet');
+      return;
+    }
+    stageRef.current.setSize(width, height);
+  }, [height, width]);
+
   return (
     <>
       <div ref={stageElementRef} style={{ width, height }} />
       {stageRef.current && (
         <StageReactContext.Provider value={stageRef.current}>
-          <Viewer width={width} height={height}>
-            {children}
-          </Viewer>
+          <Viewer>{children}</Viewer>
         </StageReactContext.Provider>
       )}
     </>

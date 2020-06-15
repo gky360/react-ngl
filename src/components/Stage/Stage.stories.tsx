@@ -6,4 +6,4 @@ export default {
   component: Stage,
 };
 
-export const Default = () => <Stage width={600} height={400} />;
+export const Usage = () => <Stage width="600px" height="400px" />;

@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStage } from '../../hooks';
 
-interface ViewerProps {
-  width: number;
-  height: number;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface ViewerProps {}
 
-export const Viewer: React.FC<ViewerProps> = ({ children, width, height }) => {
+export const Viewer: React.FC<ViewerProps> = ({ children }) => {
   const stage = useStage();
   const { viewer } = stage;
 
-  useEffect(() => {
-    viewer.setSize(width, height);
-  }, [viewer, height, width]);
+  // eslint-disable-next-line no-console
+  console.log(viewer);
 
   return <>{children}</>;
 };
