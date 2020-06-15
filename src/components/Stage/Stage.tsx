@@ -1,12 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 import { StageReactContext, useElement } from '../../hooks';
 import { NGL } from '../../utils';
+import { Viewer } from './Viewer';
 
 export interface StageProps {
   parameters?: Partial<NGL.StageParameters>;
+  width: number;
+  height: number;
 }
 
-export const Stage: React.FC<StageProps> = ({ parameters, children }) => {
+export const Stage: React.FC<StageProps> = ({
+  children,
+  parameters,
+  width,
+  height,
+}) => {
   const stageRef = useRef<NGL.Stage>();
 
   const [stageElement, stageElementRef] = useElement();
@@ -33,10 +41,12 @@ export const Stage: React.FC<StageProps> = ({ parameters, children }) => {
 
   return (
     <>
-      <div ref={stageElementRef} />
+      <div ref={stageElementRef} style={{ width, height }} />
       {stageRef.current && (
         <StageReactContext.Provider value={stageRef.current}>
-          {children}
+          <Viewer width={width} height={height}>
+            {children}
+          </Viewer>
         </StageReactContext.Provider>
       )}
     </>
