@@ -33,17 +33,15 @@ export const Stage: React.FC<StageProps> = ({
   }, [stage]);
 
   useEffect(() => {
-    if (!stage) {
-      return;
+    if (stage) {
+      stage.setParameters(parameters);
     }
-    stage.setParameters(parameters);
   }, [parameters, stage]);
 
   useEffect(() => {
-    if (!stage) {
-      return;
+    if (stage) {
+      stage.setSize(width, height);
     }
-    stage.setSize(width, height);
   }, [height, stage, width]);
 
   return (
