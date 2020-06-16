@@ -4,14 +4,14 @@ import { NGL } from '../../utils';
 import { Viewer } from './Viewer';
 
 export interface StageProps {
-  parameters?: Partial<NGL.StageParameters>;
+  params?: Partial<NGL.StageParameters>;
   width: string;
   height: string;
 }
 
 export const Stage: React.FC<StageProps> = ({
   children,
-  parameters,
+  params: parameters,
   width,
   height,
 }) => {
