@@ -40,13 +40,15 @@ export const Stage: React.FC<StageProps> = ({
   }, [parameters, stageElement]);
 
   useEffect(() => {
-    if (!stageRef.current) {
-      // eslint-disable-next-line no-console
-      console.warn('NGL Stage is not created yet');
-      return;
+    if (stageElement) {
+      if (!stageRef.current) {
+        // eslint-disable-next-line no-console
+        console.warn('NGL Stage is not created yet');
+        return;
+      }
+      stageRef.current.setSize(width, height);
     }
-    stageRef.current.setSize(width, height);
-  }, [height, width]);
+  }, [height, stageElement, width]);
 
   return (
     <>
