@@ -46,6 +46,7 @@
     "commitMessage": "Deploy Storybook to GitHub Pages"
   },
   "dependencies": {
+    "@n1ru4l/use-async-effect": "^1.2.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
