@@ -9,6 +9,6 @@ export default {
 
 export const Usage = () => (
   <Stage width="600px" height="400px">
-    <Component path="" />
+    <Component path="rcsb://4hhb" />
   </Stage>
 );

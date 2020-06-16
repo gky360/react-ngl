@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { StageReactContext, useElement } from '../../hooks';
+import React, { useEffect, useState, RefCallback, useCallback } from 'react';
+import { StageReactContext } from '../../hooks';
 import { NGL } from '../../utils';
 import { Viewer } from './Viewer';
 
@@ -15,46 +15,42 @@ export const Stage: React.FC<StageProps> = ({
   width,
   height,
 }) => {
-  const stageRef = useRef<NGL.Stage>();
+  const [stage, setStage] = useState<NGL.Stage>();
 
-  const [stageElement, stageElementRef] = useElement();
+  const stageElementRef: RefCallback<HTMLElement> = useCallback((element) => {
+    if (element) {
+      const currentStage = new NGL.Stage(element);
+      setStage(currentStage);
+    }
+  }, []);
 
   useEffect(() => {
-    if (stageRef.current) {
-      stageRef.current.dispose();
-    }
-    if (stageElement) {
-      stageRef.current = new NGL.Stage(stageElement);
-    }
-  }, [stageElement]);
-
-  useEffect(() => {
-    if (stageElement) {
-      if (!stageRef.current) {
-        // eslint-disable-next-line no-console
-        console.warn('NGL Stage is not created yet');
-        return;
+    return (): void => {
+      if (stage) {
+        stage.dispose();
       }
-      stageRef.current.setParameters(parameters);
-    }
-  }, [parameters, stageElement]);
+    };
+  }, [stage]);
 
   useEffect(() => {
-    if (stageElement) {
-      if (!stageRef.current) {
-        // eslint-disable-next-line no-console
-        console.warn('NGL Stage is not created yet');
-        return;
-      }
-      stageRef.current.setSize(width, height);
+    if (!stage) {
+      return;
     }
-  }, [height, stageElement, width]);
+    stage.setParameters(parameters);
+  }, [parameters, stage]);
+
+  useEffect(() => {
+    if (!stage) {
+      return;
+    }
+    stage.setSize(width, height);
+  }, [height, stage, width]);
 
   return (
     <>
       <div ref={stageElementRef} style={{ width, height }} />
-      {stageRef.current && (
-        <StageReactContext.Provider value={stageRef.current}>
+      {stage && (
+        <StageReactContext.Provider value={stage}>
           <Viewer>{children}</Viewer>
         </StageReactContext.Provider>
       )}
