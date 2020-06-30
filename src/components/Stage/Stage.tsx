@@ -1,4 +1,10 @@
-import React, { useEffect, useState, RefCallback, useCallback } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  RefCallback,
+} from 'react';
 import { StageReactContext } from '../../hooks';
 import {
   NGL,
@@ -6,6 +12,7 @@ import {
   getCameraState,
   applyCameraState,
   resetCameraState,
+  isCameraStateEqual,
 } from '../../utils';
 import { Viewer } from './Viewer';
 
@@ -27,6 +34,7 @@ export const Stage: React.FC<StageProps> = ({
   cameraState,
   onCameraMove,
 }) => {
+  const prevCameraStateRef = useRef<CameraState>();
   const [stage, setStage] = useState<NGL.Stage>();
 
   const stageElementRef: RefCallback<HTMLElement> = useCallback((element) => {
@@ -58,10 +66,14 @@ export const Stage: React.FC<StageProps> = ({
 
   useEffect(() => {
     if (stage) {
-      if (cameraState) {
-        applyCameraState(stage, cameraState);
-      } else {
-        resetCameraState(stage, CAMERA_STATE_RESET_DURATION);
+      const prevCameraState = prevCameraStateRef.current;
+      if (!isCameraStateEqual(cameraState, prevCameraState)) {
+        prevCameraStateRef.current = cameraState;
+        if (cameraState) {
+          applyCameraState(stage, cameraState);
+        } else {
+          resetCameraState(stage, CAMERA_STATE_RESET_DURATION);
+        }
       }
     }
   }, [cameraState, stage]);

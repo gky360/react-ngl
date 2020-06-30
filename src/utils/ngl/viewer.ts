@@ -43,3 +43,17 @@ export const applyCameraState = (
     stage.viewerControls.distance(cameraState.distance);
   }
 };
+
+export const isCameraStateEqual = (
+  a: CameraState | undefined,
+  b: CameraState | undefined
+): boolean => {
+  if (a === undefined || b === undefined) {
+    return a === b;
+  }
+  return (
+    a.position.equals(b.position) &&
+    a.rotation.equals(b.rotation) &&
+    a.distance === b.distance
+  );
+};
