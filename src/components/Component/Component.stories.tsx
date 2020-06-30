@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Stage } from '../Stage/Stage';
 import { Component } from './Component';
 
@@ -7,8 +7,11 @@ export default {
   component: Component,
 };
 
-export const Usage = () => (
-  <Stage width="600px" height="400px">
-    <Component path="rcsb://4hhb" />
-  </Stage>
-);
+export const Usage = () => {
+  const reprList = useMemo(() => [{ type: 'cartoon' as const }], []);
+  return (
+    <Stage width="600px" height="400px">
+      <Component path="rcsb://4hhb" reprList={reprList} />
+    </Stage>
+  );
+};
