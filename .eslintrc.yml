@@ -31,6 +31,9 @@ rules:
     - assert: either
   import/no-default-export: error
   import/prefer-default-export: off
+  react-hooks/exhaustive-deps:
+    - warn
+    - additionalHooks: useAsyncEffect
 overrides:
   - files:
       - '**/*.tsx'
