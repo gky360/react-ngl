@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import useAsyncEffect from '@n1ru4l/use-async-effect';
-import { NGL } from '../../utils';
+import { NGL, RepresentationDescriptor } from '../../utils';
 import { useStage } from '../../hooks';
 
 export interface ComponentProps {
   path: string | File | Blob;
   loadFileParams?: Partial<NGL.StageLoadFileParams>;
   params?: Partial<NGL.ComponentParameters>;
-  reprList?: NGL.RepresentationDescriptor[];
+  reprList?: RepresentationDescriptor[];
   onLoadFailure?: (error: Error) => void;
 }
 
