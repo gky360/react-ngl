@@ -1,6 +1,12 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import throttle from 'lodash/throttle';
-import { CameraState, Position, Rotation } from '../../utils';
+import {
+  CameraState,
+  Position,
+  Rotation,
+  resetCameraState,
+  NGL,
+} from '../../utils';
 import { Component } from '../Component/Component';
 import { Stage } from './Stage';
 
@@ -72,6 +78,12 @@ export const ControllCameraState = () => {
     []
   );
 
+  const handleLoad = useCallback(
+    (component: NGL.Component | undefined) =>
+      setTimeout(() => component?.stage && resetCameraState(component.stage)),
+    []
+  );
+
   return (
     <>
       <Stage
@@ -80,7 +92,7 @@ export const ControllCameraState = () => {
         cameraState={cameraState}
         onCameraMove={handleCameraMove}
       >
-        <Component path="rcsb://4hhb" reprList={reprList} />
+        <Component path="rcsb://4hhb" reprList={reprList} onLoad={handleLoad} />
       </Stage>
 
       <div>

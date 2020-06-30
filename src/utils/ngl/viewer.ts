@@ -26,7 +26,8 @@ export const getCameraState = (stage: NGL.Stage): CameraState => {
 
 export const applyCameraState = (
   stage: NGL.Stage,
-  cameraState: CameraState
+  cameraState: CameraState,
+  withoutDispatch = false
 ): void => {
   const { viewerControls } = stage;
   const prevCameraState = getCameraState(stage);
@@ -53,7 +54,11 @@ export const applyCameraState = (
     isChanged = true;
   }
   if (isChanged) {
-    viewerControls.changed();
+    // see also https://github.com/arose/ngl/blob/7bf7e355/src/controls/viewer-controls.ts#L72
+    viewerControls.viewer.requestRender();
+    if (!withoutDispatch) {
+      viewerControls.signals.changed.dispatch();
+    }
   }
 };
 
@@ -63,7 +68,7 @@ export const resetCameraState = (stage: NGL.Stage): void => {
     rotation: DEFAULT_ROTATION,
     distance: stage.getZoom(),
   };
-  applyCameraState(stage, cameraState);
+  applyCameraState(stage, cameraState, true);
 };
 
 export const isCameraStateEqual = (

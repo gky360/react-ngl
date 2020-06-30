@@ -8,6 +8,7 @@ export interface ComponentProps {
   loadFileParams?: Partial<NGL.StageLoadFileParams>;
   params?: Partial<NGL.ComponentParameters>;
   reprList?: RepresentationDescriptor[];
+  onLoad?: (component: NGL.Component | undefined) => void;
   onLoadFailure?: (error: Error) => void;
 }
 
@@ -16,29 +17,40 @@ export const Component: React.FC<ComponentProps> = ({
   loadFileParams,
   params,
   reprList = [],
+  onLoad,
   onLoadFailure,
 }) => {
   const stage = useStage();
   const [component, setComponent] = useState<NGL.Component>();
 
-  useAsyncEffect(function* loadFiles(setCancelHandler, c) {
-    const abortController = new AbortController();
-    setCancelHandler(() => abortController.abort());
-    let nextComponent;
-    try {
-      nextComponent = yield* c(stage.loadFile(path, loadFileParams));
-    } catch (error) {
-      if (onLoadFailure) {
-        onLoadFailure(error);
+  useAsyncEffect(
+    function* loadFiles(setCancelHandler, c) {
+      const abortController = new AbortController();
+      setCancelHandler(() => abortController.abort());
+      let nextComponent: NGL.Component | undefined;
+      try {
+        nextComponent = (yield* c(stage.loadFile(path, loadFileParams))) as
+          | NGL.Component
+          | undefined;
+      } catch (error) {
+        if (onLoadFailure) {
+          onLoadFailure(error);
+        }
       }
+      if (nextComponent) {
+        // eslint-disable-next-line no-console
+        console.log(nextComponent);
+        setComponent(nextComponent);
+      }
+    },
+    [loadFileParams, onLoadFailure, path, stage]
+  );
+
+  useEffect(() => {
+    if (component && onLoad) {
+      onLoad(component);
     }
-    if (!nextComponent) {
-      return;
-    }
-    // eslint-disable-next-line no-console
-    console.log(nextComponent);
-    setComponent(nextComponent);
-  }, []);
+  }, [component, onLoad]);
 
   useEffect(() => {
     if (component) {
