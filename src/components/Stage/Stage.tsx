@@ -1,20 +1,30 @@
 import React, { useEffect, useState, RefCallback, useCallback } from 'react';
 import { StageReactContext } from '../../hooks';
-import { NGL, CameraState, getCameraState } from '../../utils';
+import {
+  NGL,
+  CameraState,
+  getCameraState,
+  applyCameraState,
+  resetCameraState,
+} from '../../utils';
 import { Viewer } from './Viewer';
 
 export interface StageProps {
   width: string;
   height: string;
   params?: Partial<NGL.StageParameters>;
+  cameraState?: CameraState;
   onCameraMove?: (cameraState: CameraState) => void;
 }
+
+const CAMERA_STATE_RESET_DURATION = 150;
 
 export const Stage: React.FC<StageProps> = ({
   children,
   width,
   height,
   params,
+  cameraState,
   onCameraMove,
 }) => {
   const [stage, setStage] = useState<NGL.Stage>();
@@ -46,10 +56,19 @@ export const Stage: React.FC<StageProps> = ({
     }
   }, [height, stage, width]);
 
+  useEffect(() => {
+    if (stage) {
+      if (cameraState) {
+        applyCameraState(stage, cameraState);
+      } else {
+        resetCameraState(stage, CAMERA_STATE_RESET_DURATION);
+      }
+    }
+  }, [cameraState, stage]);
+
   const handleCameraMove = useCallback(() => {
     if (stage && onCameraMove) {
-      const cameraState = getCameraState(stage);
-      onCameraMove(cameraState);
+      onCameraMove(getCameraState(stage));
     }
   }, [onCameraMove, stage]);
 
