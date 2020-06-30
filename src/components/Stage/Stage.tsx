@@ -24,6 +24,19 @@ export interface StageProps {
   onCameraMove?: (cameraState: CameraState) => void;
 }
 
+const setupStage = (stage: NGL.Stage): void => {
+  // reset camera state when first component is loaded
+  stage.signals.componentAdded.addOnce(() => {
+    setTimeout(() => {
+      resetCameraState(stage);
+    });
+  });
+};
+
+const teardownStage = (stage: NGL.Stage): void => {
+  stage.dispose();
+};
+
 export const Stage: React.FC<StageProps> = ({
   children,
   width,
@@ -43,9 +56,12 @@ export const Stage: React.FC<StageProps> = ({
   }, []);
 
   useEffect(() => {
+    if (stage) {
+      setupStage(stage);
+    }
     return (): void => {
       if (stage) {
-        stage.dispose();
+        teardownStage(stage);
       }
     };
   }, [stage]);

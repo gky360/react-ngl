@@ -78,12 +78,6 @@ export const ControllCameraState = () => {
     []
   );
 
-  const handleLoad = useCallback(
-    (component: NGL.Component | undefined) =>
-      setTimeout(() => component?.stage && resetCameraState(component.stage)),
-    []
-  );
-
   return (
     <>
       <Stage
@@ -92,7 +86,7 @@ export const ControllCameraState = () => {
         cameraState={cameraState}
         onCameraMove={handleCameraMove}
       >
-        <Component path="rcsb://4hhb" reprList={reprList} onLoad={handleLoad} />
+        <Component path="rcsb://4hhb" reprList={reprList} />
       </Stage>
 
       <div>
