@@ -24,8 +24,6 @@ export interface StageProps {
   onCameraMove?: (cameraState: CameraState) => void;
 }
 
-const CAMERA_STATE_RESET_DURATION = 150;
-
 export const Stage: React.FC<StageProps> = ({
   children,
   width,
@@ -72,7 +70,7 @@ export const Stage: React.FC<StageProps> = ({
         if (cameraState) {
           applyCameraState(stage, cameraState);
         } else {
-          resetCameraState(stage, CAMERA_STATE_RESET_DURATION);
+          resetCameraState(stage);
         }
       }
     }

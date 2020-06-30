@@ -1,10 +1,12 @@
-import { Vector3, Quaternion } from 'three';
 import * as NGL from './nglTypes';
 
-export type Position = Vector3;
-export type Rotation = Quaternion;
+export const Position = NGL.Vector3;
+export type Position = NGL.Vector3;
 
-export const DEFAULT_ROTATION: Rotation = new Quaternion(0, 0, 0, 1);
+export const Rotation = NGL.Quaternion;
+export type Rotation = NGL.Quaternion;
+
+export const DEFAULT_ROTATION: Rotation = new Rotation(0, 0, 0, 1);
 
 export interface CameraState {
   position: Position;
@@ -22,26 +24,46 @@ export const getCameraState = (stage: NGL.Stage): CameraState => {
   };
 };
 
-export const resetCameraState = (stage: NGL.Stage, duration?: number): void => {
-  stage.animationControls.rotate(DEFAULT_ROTATION, duration);
-  stage.autoView(duration);
-};
-
 export const applyCameraState = (
   stage: NGL.Stage,
   cameraState: CameraState
 ): void => {
+  const { viewerControls } = stage;
   const prevCameraState = getCameraState(stage);
+  let isChanged = false;
   if (!cameraState.position.equals(prevCameraState.position)) {
-    const nextPosition = cameraState.position.clone().negate();
-    stage.viewerControls.center(nextPosition);
+    // see also https://github.com/arose/ngl/blob/7bf7e355/src/controls/viewer-controls.ts#L153
+    viewerControls.viewer.translationGroup.position.copy(cameraState.position);
+    isChanged = true;
   }
   if (!cameraState.rotation.equals(prevCameraState.rotation)) {
-    stage.viewerControls.rotate(cameraState.rotation);
+    // see also https://github.com/arose/ngl/blob/7bf7e355/src/controls/viewer-controls.ts#L199
+    viewerControls.viewer.rotationGroup.setRotationFromQuaternion(
+      cameraState.rotation
+    );
+    isChanged = true;
   }
   if (cameraState.distance !== prevCameraState.distance) {
-    stage.viewerControls.distance(cameraState.distance);
+    // see also https://github.com/arose/ngl/blob/7bf7e355/src/controls/viewer-controls.ts#L173
+    viewerControls.viewer.camera.position.z = Math.min(
+      -1,
+      cameraState.distance
+    );
+    viewerControls.viewer.updateZoom();
+    isChanged = true;
   }
+  if (isChanged) {
+    viewerControls.changed();
+  }
+};
+
+export const resetCameraState = (stage: NGL.Stage): void => {
+  const cameraState = {
+    position: stage.getCenter(),
+    rotation: DEFAULT_ROTATION,
+    distance: stage.getZoom(),
+  };
+  applyCameraState(stage, cameraState);
 };
 
 export const isCameraStateEqual = (
