@@ -38,8 +38,6 @@ export const Component: React.FC<ComponentProps> = ({
         }
       }
       if (nextComponent) {
-        // eslint-disable-next-line no-console
-        console.log(nextComponent);
         setComponent(nextComponent);
       }
     },
@@ -52,6 +50,10 @@ export const Component: React.FC<ComponentProps> = ({
     }
   }, [component, onLoad]);
 
+  // TODO: set params
+  // eslint-disable-next-line no-console
+  console.log(params);
+
   useEffect(() => {
     if (component) {
       component.removeAllRepresentations();
@@ -60,9 +62,6 @@ export const Component: React.FC<ComponentProps> = ({
       );
     }
   }, [component, reprList]);
-
-  // eslint-disable-next-line no-console
-  console.log({ stage, path, loadFileParams, params });
 
   return null;
 };
