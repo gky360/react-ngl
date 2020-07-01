@@ -1,12 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import throttle from 'lodash/throttle';
-import {
-  CameraState,
-  Position,
-  Rotation,
-  resetCameraState,
-  NGL,
-} from '../../utils';
+import { CameraState, Position, Rotation } from '../../utils';
 import { Component } from '../Component/Component';
 import { Stage } from './Stage';
 
