@@ -19,7 +19,7 @@ export const Usage = () => {
 };
 
 export const CaptureCameraState = () => {
-  const THROTTLE_MS = 100;
+  const THROTTLE_MS = 300;
   const reprList = useMemo(() => [{ type: 'cartoon' as const }], []);
 
   const [cameraState, setCameraState] = useState<CameraState>();
@@ -48,7 +48,7 @@ export const CaptureCameraState = () => {
 };
 
 export const ControllCameraState = () => {
-  const THROTTLE_MS = 100;
+  const THROTTLE_MS = 300;
   const cameraStateA = {
     position: new Position(7, 28, -3),
     rotation: new Rotation(0.8, 0.4, 0, -0.5),
@@ -85,13 +85,13 @@ export const ControllCameraState = () => {
 
       <div>
         <button type="button" onClick={() => setCameraState(cameraStateA)}>
-          State A
+          Camera State A
         </button>
         <button type="button" onClick={() => setCameraState(cameraStateB)}>
-          State B
+          Camera State B
         </button>
         <button type="button" onClick={() => setCameraState(undefined)}>
-          Reset
+          Camera Reset
         </button>
       </div>
 
