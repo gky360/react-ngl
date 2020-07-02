@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import useAsyncEffect from '@n1ru4l/use-async-effect';
 import { NGL, RepresentationDescriptor, mergeParams } from '../../utils';
 import { useStage } from '../../hooks';
-import { ComponentDefaultParameters } from '../../utils/ngl/nglTypes';
+
+// copied from https://github.com/arose/ngl/blob/d6a567ac/src/component/component.ts#L23
+export const ComponentDefaultParameters = {
+  name: '',
+  status: '',
+  visible: true,
+};
+export type ComponentParameters = typeof ComponentDefaultParameters;
 
 export interface ComponentProps {
   path: string | File | Blob;
@@ -16,7 +23,7 @@ export interface ComponentProps {
 export const Component: React.FC<ComponentProps> = ({
   path,
   loadFileParams,
-  params = NGL.ComponentDefaultParameters,
+  params = ComponentDefaultParameters,
   reprList = [],
   onLoad,
   onLoadFailure,
