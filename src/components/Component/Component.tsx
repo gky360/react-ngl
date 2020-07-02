@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import useAsyncEffect from '@n1ru4l/use-async-effect';
-import { NGL, RepresentationDescriptor } from '../../utils';
+import { NGL, RepresentationDescriptor, mergeParams } from '../../utils';
 import { useStage } from '../../hooks';
+import { ComponentDefaultParameters } from '../../utils/ngl/nglTypes';
 
 export interface ComponentProps {
   path: string | File | Blob;
@@ -15,7 +16,7 @@ export interface ComponentProps {
 export const Component: React.FC<ComponentProps> = ({
   path,
   loadFileParams,
-  params,
+  params = NGL.ComponentDefaultParameters,
   reprList = [],
   onLoad,
   onLoadFailure,
@@ -50,9 +51,20 @@ export const Component: React.FC<ComponentProps> = ({
     }
   }, [component, onLoad]);
 
-  // TODO: set params
-  // eslint-disable-next-line no-console
-  console.log(params);
+  useEffect(() => {
+    if (component) {
+      const nextParams = mergeParams(params, ComponentDefaultParameters);
+      if (nextParams.name !== component.parameters.name) {
+        component.setName(nextParams.name);
+      }
+      if (nextParams.status !== component.parameters.status) {
+        component.setStatus(nextParams.status);
+      }
+      if (nextParams.visible !== component.parameters.visible) {
+        component.setVisibility(nextParams.visible);
+      }
+    }
+  }, [component, params]);
 
   useEffect(() => {
     if (component) {
