@@ -11,11 +11,20 @@ export const ComponentDefaultParameters = {
 };
 export type ComponentParameters = typeof ComponentDefaultParameters;
 
+const defaultPosition = new NGL.Vector3();
+const defaultQuaternion = new NGL.Quaternion();
+const defaultScale = 1;
+const defaultTransform = new NGL.Matrix4();
+
 export interface ComponentProps {
   path: string | File | Blob;
   loadFileParams?: Partial<NGL.StageLoadFileParams>;
   params?: Partial<NGL.ComponentParameters>;
   reprList?: RepresentationDescriptor[];
+  position?: NGL.Vector3;
+  quaternion?: NGL.Quaternion;
+  scale?: number;
+  transform?: NGL.Matrix4;
   onLoad?: (component: NGL.Component | undefined) => void;
   onLoadFailure?: (error: Error) => void;
 }
@@ -25,6 +34,10 @@ export const Component: React.FC<ComponentProps> = ({
   loadFileParams,
   params = ComponentDefaultParameters,
   reprList = [],
+  position = defaultPosition,
+  quaternion = defaultQuaternion,
+  scale = defaultScale,
+  transform = defaultTransform,
   onLoad,
   onLoadFailure,
 }) => {
@@ -81,6 +94,27 @@ export const Component: React.FC<ComponentProps> = ({
       );
     }
   }, [component, reprList]);
+
+  useEffect(() => {
+    if (component) {
+      component.setPosition(position);
+    }
+  }, [component, position]);
+  useEffect(() => {
+    if (component) {
+      component.setRotation(quaternion);
+    }
+  }, [component, quaternion]);
+  useEffect(() => {
+    if (component) {
+      component.setScale(scale);
+    }
+  }, [component, scale]);
+  useEffect(() => {
+    if (component) {
+      component.setTransform(transform);
+    }
+  }, [component, transform]);
 
   return null;
 };
