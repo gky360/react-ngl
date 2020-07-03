@@ -52,7 +52,9 @@ export const Representations = () => {
         onChange={handleReprChange}
       >
         {Object.keys(reprLists).map((name) => (
-          <option value={name}>{name}</option>
+          <option key={name} value={name}>
+            {name}
+          </option>
         ))}
       </select>
     </>

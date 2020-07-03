@@ -24,13 +24,12 @@ export interface StageProps {
   onCameraMove?: (cameraState: CameraState) => void;
 }
 
-const setupStage = (stage: NGL.Stage): void => {
+const setupStage = (
+  stage: NGL.Stage,
+  setInitialized: (isInitialized: boolean) => void
+): void => {
   // reset camera state when first component is loaded
-  stage.signals.componentAdded.addOnce(() => {
-    setTimeout(() => {
-      resetCameraState(stage);
-    });
-  });
+  stage.signals.componentAdded.addOnce(() => setInitialized(true));
 };
 
 const teardownStage = (stage: NGL.Stage): void => {
@@ -46,6 +45,7 @@ export const Stage: React.FC<StageProps> = ({
   onCameraMove,
 }) => {
   const prevCameraStateRef = useRef<CameraState>();
+  const [isInitialized, setInitialized] = useState(false);
   const [stage, setStage] = useState<NGL.Stage>();
 
   const stageElementRef: RefCallback<HTMLElement> = useCallback((element) => {
@@ -57,7 +57,7 @@ export const Stage: React.FC<StageProps> = ({
 
   useEffect(() => {
     if (stage) {
-      setupStage(stage);
+      setupStage(stage, setInitialized);
     }
     return (): void => {
       if (stage) {
@@ -81,7 +81,7 @@ export const Stage: React.FC<StageProps> = ({
   useEffect(() => {
     if (stage) {
       const prevCameraState = prevCameraStateRef.current;
-      if (!isCameraStateEqual(cameraState, prevCameraState)) {
+      if (isInitialized && !isCameraStateEqual(cameraState, prevCameraState)) {
         prevCameraStateRef.current = cameraState;
         if (cameraState) {
           applyCameraState(stage, cameraState);
@@ -90,7 +90,7 @@ export const Stage: React.FC<StageProps> = ({
         }
       }
     }
-  }, [cameraState, stage]);
+  }, [cameraState, isInitialized, stage]);
 
   const handleCameraMove = useCallback(() => {
     if (stage && onCameraMove) {
