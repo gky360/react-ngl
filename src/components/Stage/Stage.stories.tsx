@@ -91,7 +91,7 @@ export const ControllCameraState = () => {
           Camera State B
         </button>
         <button type="button" onClick={() => setCameraState(undefined)}>
-          Camera Reset
+          Reset
         </button>
       </div>
 

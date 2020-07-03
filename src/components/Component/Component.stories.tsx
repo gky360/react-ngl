@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Stage } from '../Stage/Stage';
 import { Component } from './Component';
-import { NGL } from '../../utils';
 
 export default {
   title: 'Components/Component',
@@ -18,34 +17,44 @@ export const Usage = () => {
 };
 
 export const Representations = () => {
-  const positionA = useMemo(() => new NGL.Vector3(-20 + 40, -20 + 40, 0), []);
-  const positionB = useMemo(() => new NGL.Vector3(-20 + -40, -20 + 40, 0), []);
-  const positionC = useMemo(() => new NGL.Vector3(-20 + 40, -20 + -40, 0), []);
-  const positionD = useMemo(() => new NGL.Vector3(-20 + -40, -20 + -40, 0), []);
+  const reprLists = useMemo(
+    () => ({
+      'ball+stick': [{ type: 'ball+stick' as const }],
+      cartoon: [{ type: 'cartoon' as const }],
+      'ribbon and line': [
+        { type: 'ribbon' as const, param: { color: 'atomindex' } },
+        { type: 'line' as const, param: { color: 'element' } },
+      ],
+      spacefill: [{ type: 'spacefill' as const, param: { color: 'element' } }],
+      surface: [{ type: 'surface' as const, param: { color: 'element' } }],
+    }),
+    []
+  );
+  type ReprName = keyof typeof reprLists;
 
-  const reprListA = useMemo(() => [{ type: 'ball+stick' as const }], []);
-  const reprListB = useMemo(
-    () => [
-      { type: 'ribbon' as const, param: { color: 'atomindex' } },
-      { type: 'line' as const, param: { color: 'element' } },
-    ],
-    []
-  );
-  const reprListC = useMemo(
-    () => [{ type: 'spacefill' as const, param: { color: 'element' } }],
-    []
-  );
-  const reprListD = useMemo(
-    () => [{ type: 'surface' as const, param: { color: 'element' } }],
+  const [reprName, setReprName] = useState<ReprName>('cartoon');
+
+  const handleReprChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) =>
+      setReprName(event.target.value as ReprName),
     []
   );
 
   return (
-    <Stage width="600px" height="400px">
-      <Component path="rcsb://4hhb" position={positionA} reprList={reprListA} />
-      <Component path="rcsb://4hhb" position={positionB} reprList={reprListB} />
-      <Component path="rcsb://4hhb" position={positionC} reprList={reprListC} />
-      <Component path="rcsb://4hhb" position={positionD} reprList={reprListD} />
-    </Stage>
+    <>
+      <Stage width="600px" height="400px">
+        <Component path="rcsb://4hhb" reprList={reprLists[reprName]} />
+      </Stage>
+
+      <select
+        name="representation"
+        value={reprName}
+        onChange={handleReprChange}
+      >
+        {Object.keys(reprLists).map((name) => (
+          <option value={name}>{name}</option>
+        ))}
+      </select>
+    </>
   );
 };
