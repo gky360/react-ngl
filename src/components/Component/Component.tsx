@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAsyncEffect from '@n1ru4l/use-async-effect';
 import { NGL, RepresentationDescriptor, mergeParams } from '../../utils';
-import { useStage } from '../../hooks';
+import { useStage, ComponentReactContext } from '../../hooks';
 
 // copied from https://github.com/arose/ngl/blob/d6a567ac/src/component/component.ts#L23
 export const ComponentDefaultParameters = {
@@ -30,6 +30,7 @@ export interface ComponentProps {
 }
 
 export const Component: React.FC<ComponentProps> = ({
+  children,
   path,
   loadFileParams,
   params = ComponentDefaultParameters,
@@ -45,7 +46,7 @@ export const Component: React.FC<ComponentProps> = ({
   const [component, setComponent] = useState<NGL.Component>();
 
   useAsyncEffect(
-    function* loadFiles(setCancelHandler, c) {
+    function* loadFile(setCancelHandler, c) {
       const abortController = new AbortController();
       setCancelHandler(() => abortController.abort());
       let nextComponent: NGL.Component | undefined;
@@ -116,5 +117,13 @@ export const Component: React.FC<ComponentProps> = ({
     }
   }, [component, transform]);
 
-  return null;
+  return (
+    <>
+      {component && (
+        <ComponentReactContext.Provider value={component}>
+          {children}
+        </ComponentReactContext.Provider>
+      )}
+    </>
+  );
 };
