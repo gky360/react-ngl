@@ -16,7 +16,7 @@ const StructureComponentInner: React.FC<StructureComponentInnerProps> = ({
       'NGL Component loaded from given path is not a StructureComponent'
     );
   }
-  console.log(component);
+  console.log(component, selection);
 
   return null;
 };

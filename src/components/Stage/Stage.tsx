@@ -11,7 +11,6 @@ import {
   CameraState,
   getCameraState,
   applyCameraState,
-  resetCameraState,
   isCameraStateEqual,
 } from '../../utils';
 import { Viewer } from './Viewer';
@@ -20,7 +19,7 @@ export interface StageProps {
   width: string;
   height: string;
   params?: Partial<NGL.StageParameters>;
-  cameraState?: CameraState;
+  cameraState?: Partial<CameraState>;
   onCameraMove?: (cameraState: CameraState) => void;
 }
 
@@ -28,8 +27,9 @@ const setupStage = (
   stage: NGL.Stage,
   setInitialized: (isInitialized: boolean) => void
 ): void => {
-  // reset camera state when first component is loaded
-  stage.signals.componentAdded.addOnce(() => setInitialized(true));
+  stage.signals.componentAdded.addOnce(() =>
+    setTimeout(() => setInitialized(true))
+  );
 };
 
 const teardownStage = (stage: NGL.Stage): void => {
@@ -44,7 +44,7 @@ export const Stage: React.FC<StageProps> = ({
   cameraState,
   onCameraMove,
 }) => {
-  const prevCameraStateRef = useRef<CameraState>();
+  const prevCameraStateRef = useRef<Partial<CameraState>>();
   const [isInitialized, setInitialized] = useState(false);
   const [stage, setStage] = useState<NGL.Stage>();
 
@@ -85,8 +85,6 @@ export const Stage: React.FC<StageProps> = ({
         prevCameraStateRef.current = cameraState;
         if (cameraState) {
           applyCameraState(stage, cameraState);
-        } else {
-          resetCameraState(stage);
         }
       }
     }

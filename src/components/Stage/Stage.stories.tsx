@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import throttle from 'lodash/throttle';
-import { NGL, CameraState, Position, Rotation } from '../../utils';
+import { CameraState, Position, Rotation } from '../../utils';
 import { Component } from '../Component/Component';
 import { Stage } from './Stage';
 
@@ -41,7 +41,7 @@ export const CaptureCameraState = () => {
 
       <h4>Camera state</h4>
       <pre>
-        {cameraState ? JSON.stringify(cameraState, undefined, 2) : 'Default'}
+        {cameraState ? JSON.stringify(cameraState, undefined, 2) : 'N/A'}
       </pre>
     </>
   );
@@ -61,7 +61,7 @@ export const ControllCameraState = () => {
         rotation: new Rotation(-0.6, 0.1, 0.5, 0.7),
         distance: -300,
       },
-      Reset: undefined,
+      Reset: {},
     }),
     []
   );
@@ -71,8 +71,8 @@ export const ControllCameraState = () => {
   const [cameraStateName, setCameraStateName] = useState<CameraStateName>(
     'Camera State A'
   );
-  const [cameraState, setCameraState] = useState<CameraState | undefined>(
-    cameraStates['Camera State A']
+  const [cameraState, setCameraState] = useState<Partial<CameraState>>(
+    cameraStates[cameraStateName]
   );
 
   const handleCameraMove = useMemo(
@@ -116,7 +116,7 @@ export const ControllCameraState = () => {
 
       <h4>Camera state</h4>
       <pre>
-        {cameraState ? JSON.stringify(cameraState, undefined, 2) : 'Default'}
+        {cameraState ? JSON.stringify(cameraState, undefined, 2) : 'N/A'}
       </pre>
     </>
   );
