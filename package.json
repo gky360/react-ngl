@@ -9,13 +9,15 @@
     "npm": ">= 6.12.0"
   },
   "scripts": {
-    "start": "npm run storybook",
+    "start": "npm run storybook --",
     "lint": "eslint --max-warnings=0 --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:ci": "npm run test -- --verbose --ci",
     "test:watch": "npm run test -- --watch",
-    "prebuild": "npm run clean",
+    "prepare": "npm run setup-ngl --",
+    "setup-ngl": "cd modules/ngl && npm ci && npm run dts",
+    "prebuild": "npm run clean --",
     "build": "tsc",
     "clean": "rm -rf ./dist",
     "storybook": "start-storybook -p 6006",
@@ -44,8 +46,10 @@
     "commitMessage": "Deploy Storybook to GitHub Pages"
   },
   "dependencies": {
+    "@n1ru4l/use-async-effect": "^1.2.3",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "three": "^0.111.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -63,6 +67,7 @@
     "@storybook/storybook-deployer": "^2.8.6",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.2.2",
+    "@types/lodash": "^4.14.157",
     "@types/react": "^16.9.35",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
@@ -82,6 +87,8 @@
     "jest": "^25.5.4",
     "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
+    "lodash": "^4.17.15",
+    "ngl": "file:modules/ngl",
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
     "react-docgen-typescript-loader": "^3.7.2",
