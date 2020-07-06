@@ -15,7 +15,7 @@ export interface CameraState {
   distance: number;
 }
 
-export const DEFAULT_CAMERA_STATE: Partial<CameraState> = {};
+export const CAMERA_STATE_NONE: Partial<CameraState> = {};
 
 export const getCameraState = (stage: NGL.Stage): CameraState => {
   const { position, rotation } = stage.viewerControls;
@@ -31,6 +31,12 @@ export const getDefaultPosition = (stage: NGL.Stage): Vector3 =>
   stage.getCenter();
 
 export const getDefaultDistance = (stage: NGL.Stage): number => stage.getZoom();
+
+export const getDefaultCameraState = (stage: NGL.Stage): CameraState => ({
+  position: getDefaultPosition(stage),
+  rotation: DEFAULT_ROTATION,
+  distance: getDefaultDistance(stage),
+});
 
 export const applyCameraState = (
   stage: NGL.Stage,
@@ -70,15 +76,6 @@ export const applyCameraState = (
       viewerControls.signals.changed.dispatch();
     }
   }
-};
-
-export const resetCameraState = (stage: NGL.Stage): void => {
-  const cameraState = {
-    position: getDefaultPosition(stage),
-    rotation: DEFAULT_ROTATION,
-    distance: getDefaultDistance(stage),
-  };
-  applyCameraState(stage, cameraState, true);
 };
 
 export const isCameraStateEqual = (

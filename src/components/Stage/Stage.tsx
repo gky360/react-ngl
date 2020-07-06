@@ -12,6 +12,8 @@ import {
   getCameraState,
   applyCameraState,
   isCameraStateEqual,
+  getDefaultCameraState,
+  CAMERA_STATE_NONE,
 } from '../../utils';
 import { Viewer } from './Viewer';
 
@@ -20,21 +22,8 @@ export interface StageProps {
   height: string;
   params?: Partial<NGL.StageParameters>;
   cameraState?: Partial<CameraState>;
-  onCameraMove?: (cameraState: CameraState) => void;
+  onCameraMove?: (cameraState: Partial<CameraState>) => void;
 }
-
-const setupStage = (
-  stage: NGL.Stage,
-  setInitialized: (isInitialized: boolean) => void
-): void => {
-  stage.signals.componentAdded.addOnce(() =>
-    setTimeout(() => setInitialized(true))
-  );
-};
-
-const teardownStage = (stage: NGL.Stage): void => {
-  stage.dispose();
-};
 
 export const Stage: React.FC<StageProps> = ({
   children,
@@ -44,8 +33,7 @@ export const Stage: React.FC<StageProps> = ({
   cameraState,
   onCameraMove,
 }) => {
-  const prevCameraStateRef = useRef<Partial<CameraState>>();
-  const [isInitialized, setInitialized] = useState(false);
+  const lastCameraStateRef = useRef<Partial<CameraState>>();
   const [stage, setStage] = useState<NGL.Stage>();
 
   const stageElementRef: RefCallback<HTMLElement> = useCallback((element) => {
@@ -56,15 +44,34 @@ export const Stage: React.FC<StageProps> = ({
   }, []);
 
   useEffect(() => {
-    if (stage) {
-      setupStage(stage, setInitialized);
-    }
     return (): void => {
       if (stage) {
-        teardownStage(stage);
+        stage.dispose();
       }
     };
   }, [stage]);
+
+  const handleComponentChange = useCallback(() => {
+    setTimeout(() => {
+      if (stage && lastCameraStateRef.current) {
+        // apply latest camera state
+        applyCameraState(stage, lastCameraStateRef.current);
+      }
+    });
+  }, [stage]);
+
+  useEffect(() => {
+    if (stage) {
+      stage.signals.componentAdded.add(handleComponentChange);
+      stage.signals.componentRemoved.add(handleComponentChange);
+    }
+    return (): void => {
+      if (stage) {
+        stage.signals.componentAdded.remove(handleComponentChange);
+        stage.signals.componentRemoved.remove(handleComponentChange);
+      }
+    };
+  }, [handleComponentChange, stage]);
 
   useEffect(() => {
     if (stage) {
@@ -80,19 +87,26 @@ export const Stage: React.FC<StageProps> = ({
 
   useEffect(() => {
     if (stage) {
-      const prevCameraState = prevCameraStateRef.current;
-      if (isInitialized && !isCameraStateEqual(cameraState, prevCameraState)) {
-        prevCameraStateRef.current = cameraState;
+      const prevCameraState = lastCameraStateRef.current;
+      if (!isCameraStateEqual(cameraState, prevCameraState)) {
+        lastCameraStateRef.current = cameraState;
         if (cameraState) {
           applyCameraState(stage, cameraState);
         }
       }
     }
-  }, [cameraState, isInitialized, stage]);
+  }, [cameraState, stage]);
 
   const handleCameraMove = useCallback(() => {
     if (stage && onCameraMove) {
-      onCameraMove(getCameraState(stage));
+      const currentCameraState = getCameraState(stage);
+      const cameraStateOrNone = isCameraStateEqual(
+        currentCameraState,
+        getDefaultCameraState(stage)
+      )
+        ? CAMERA_STATE_NONE
+        : currentCameraState;
+      onCameraMove(cameraStateOrNone);
     }
   }, [onCameraMove, stage]);
 

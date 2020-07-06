@@ -1,6 +1,11 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import throttle from 'lodash/throttle';
-import { CameraState, Position, Rotation } from '../../utils';
+import {
+  CameraState,
+  Position,
+  Rotation,
+  isCameraStateEqual,
+} from '../../utils';
 import { Component } from '../Component/Component';
 import { Stage } from './Stage';
 
@@ -22,12 +27,13 @@ export const CaptureCameraState = () => {
   const THROTTLE_MS = 300;
   const reprList = useMemo(() => [{ type: 'cartoon' as const }], []);
 
-  const [cameraState, setCameraState] = useState<CameraState>();
+  const [cameraState, setCameraState] = useState<Partial<CameraState>>();
 
   const handleCameraMove = useMemo(
     () =>
       throttle(
-        (nextCameraState: CameraState) => setCameraState(nextCameraState),
+        (nextCameraState: Partial<CameraState>) =>
+          setCameraState(nextCameraState),
         THROTTLE_MS
       ),
     []
@@ -69,7 +75,8 @@ export const ControllCameraState = () => {
   const reprList = useMemo(() => [{ type: 'cartoon' as const }], []);
 
   const [cameraStateName, setCameraStateName] = useState<CameraStateName>(
-    'Camera State A'
+    // 'Camera State A'
+    'Reset'
   );
   const [cameraState, setCameraState] = useState<Partial<CameraState>>(
     cameraStates[cameraStateName]
@@ -78,7 +85,8 @@ export const ControllCameraState = () => {
   const handleCameraMove = useMemo(
     () =>
       throttle(
-        (nextCameraState: CameraState) => setCameraState(nextCameraState),
+        (nextCameraState: Partial<CameraState>) =>
+          setCameraState(nextCameraState),
         THROTTLE_MS
       ),
     []
@@ -103,7 +111,7 @@ export const ControllCameraState = () => {
               id={name}
               name="camera-state-name"
               value={name}
-              checked={name === cameraStateName}
+              checked={isCameraStateEqual(cameraState, cameraStates[name])}
               onChange={() => {
                 setCameraStateName(name);
                 setCameraState(cameraStates[name]);
