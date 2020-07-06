@@ -28,7 +28,7 @@ export const getCameraState = (stage: NGL.Stage): CameraState => {
 };
 
 export const getDefaultPosition = (stage: NGL.Stage): Vector3 =>
-  stage.getCenter();
+  stage.getCenter().negate();
 
 export const getDefaultDistance = (stage: NGL.Stage): number => stage.getZoom();
 
