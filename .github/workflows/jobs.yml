@@ -41,7 +41,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
       - run: npm publish --dry-run
         if: matrix.os == 'ubuntu-latest'
-      - run: 'CHANGED=$(git status --porcelain) && [[ -z "$CHANGED" ]]'
+      - run: 'git diff --exit-code'
         if: matrix.os == 'ubuntu-latest'
         name: Assert no git diff
 
