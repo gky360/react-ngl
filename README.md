@@ -1,14 +1,13 @@
 # react-ngl
 
 <!-- PROJECT SHIELDS -->
+
 [![Jobs][jobs-badge]][jobs-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -33,44 +32,40 @@
   </p>
 </p>
 
-
-
 <!-- TABLE OF CONTENTS -->
+
 ## Table of Contents
 
 - [react-ngl](#react-ngl)
-    - [Table of Contents](#table-of-contents)
-    - [About The Project](#about-the-project)
-        - [Built With](#built-with)
-    - [Getting Started](#getting-started)
-        - [Prerequisites](#prerequisites)
-        - [Installation](#installation)
-    - [Usage](#usage)
-    - [Roadmap](#roadmap)
-    - [Contributing](#contributing)
-    - [License](#license)
-    - [Contact](#contact)
-    - [Acknowledgements](#acknowledgements)
-
-
+  Table of Contents](#table-of-contents)
+  - [About The Project](#about-the-project)
+    - [Built With](#built-with)
+      [ Getting Started](#getting-started)
+      [Prerequisites](#prerequisites)
+      [Installation](#installation)
+      [Usage](#usage)
+  - [Roadmap](#roadmap)
+    [Contributing](#contributing)
+    [License](#license)
+    [Contact](#contact)
+  - [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 [![React NGL Screen Shot][product-screenshot]](https://github.com/gky360/react-ngl)
 
 `react-ngl` is a React wrapper for <a href="https://github.com/nglviewer/ngl">NGL</a>.
 
-
 ### Built With
 
-* [ngl](https://github.com/nglviewer/ngl) >= v2.0.0-dev.37
-* node >= 12.16.0
-* react ^16.13.1
-
-
+- [ngl](https://github.com/nglviewer/ngl) >= v2.0.0-dev.37
+- node >= 12.16.0
+- react ^16.13.1
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -78,53 +73,55 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
+
+- npm
+
 ```sh
 npm install react-ngl
 ```
 
 ### Installation
- 
+
 1. Clone the repo
+
 ```sh
 git clone https://github.com/gky360/react-ngl.git
 ```
+
 2. Install NPM packages
+
 ```sh
 npm install
 ```
 
-
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 A minimal example of using `react-ngl` is as follows.
 
 ```tsx
-import React from 'react'
-import { Stage, Component } from 'react-ngl'
+import React from 'react';
+import { Stage, Component } from 'react-ngl';
 
 ReactDOM.render(
   <Stage width="600px" height="400px">
     <Component path="rcsb://4hhb" reprList={reprList} />
   </Stage>,
-  document.getElementById('app'),
+  document.getElementById('app')
 );
 ```
 
 _For more examples, please refer to the [Demo](https://gky360.github.io/react-ngl)_
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
 See the [open issues](https://github.com/gky360/react-ngl/issues) for a list of proposed features (and known issues).
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -135,35 +132,29 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See [`LICENSE`][license-url] for more information.
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 <!-- Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email -->
 
 Project Link: [https://github.com/gky360/react-ngl](https://github.com/gky360/react-ngl)
 
-
-
 <!-- ACKNOWLEDGEMENTS -->
+
 ## Acknowledgements
 
-* [nglviewer/ngl](https://github.com/nglviewer/ngl)
-
-
-
-
+- [nglviewer/ngl](https://github.com/nglviewer/ngl)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [jobs-badge]: https://github.com/gky360/react-ngl/workflows/Jobs/badge.svg
 [jobs-url]: https://github.com/gky360/react-ngl/actions
 [contributors-shield]: https://img.shields.io/github/contributors/gky360/react-ngl.svg

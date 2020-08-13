@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "npm run storybook --",
-    "lint": "eslint --max-warnings=0 --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint --max-warnings=0 --ext .js,.jsx,.ts,.tsx,.md,.mdx .",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:ci": "npm run test -- --verbose --ci",
@@ -62,7 +62,6 @@
     "@storybook/addon-viewport": "^6.0.5",
     "@storybook/addons": "^6.0.5",
     "@storybook/preset-scss": "^1.0.2",
-    "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^6.0.5",
     "@storybook/storybook-deployer": "^2.8.6",
     "@types/enzyme": "^3.10.5",
@@ -80,6 +79,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-mdx": "^1.8.1",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.0.8",
@@ -92,10 +92,12 @@
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
     "react-docgen-typescript-loader": "^3.7.2",
+    "remark-cli": "^8.0.1",
+    "remark-preset-lint-recommended": "^4.0.1",
+    "remark-preset-prettier": "^0.4.0",
     "sass-loader": "^9.0.3",
     "style-loader": "^1.2.1",
     "ts-jest": "^26.2.0",
-    "ts-loader": "^8.0.2",
     "typescript": "^3.9.7"
   }
 }
