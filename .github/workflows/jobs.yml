@@ -98,6 +98,10 @@ jobs:
           node-version: 12.16.0
           registry-url: https://npm.pkg.github.com
           scope: '@gky360'
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm ci
 
       - run: npm run build
