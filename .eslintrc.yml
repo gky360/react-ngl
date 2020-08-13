@@ -19,6 +19,7 @@ rules:
     - extensions:
         - '.jsx'
         - '.tsx'
+        - '.mdx'
   import/extensions:
     - error
     - '.ts': never
@@ -26,35 +27,32 @@ rules:
       '.d.ts': never
       '.js': never
       '.jsx': never
-  jsx-a11y/label-has-associated-control:
-    - error
-    - assert: either
   import/no-default-export: error
   import/prefer-default-export: off
-  react-hooks/exhaustive-deps:
-    - warn
-    - additionalHooks: useAsyncEffect
 overrides:
   - files:
-      - '**/*.tsx'
+      - '*.tsx'
     rules:
       react/prop-types: off
   - files:
-      - '**/*.stories.tsx'
-    rules:
-      import/no-default-export: off
-  - files:
-      - '**/*.js'
-      - '**/*.jsx'
-      - '**/*.stories.tsx'
+      - '*.js'
+      - '*.jsx'
     rules:
       '@typescript-eslint/explicit-function-return-type': off
   - files:
       - '.storybook/*.js'
-      - '**/*.test.js'
-      - '**/*.test.jsx'
-      - '**/*.test.ts'
-      - '**/*.test.tsx'
-      - '**/*.stories.tsx'
+      - '*.test.js'
+      - '*.test.jsx'
+      - '*.test.ts'
+      - '*.test.tsx'
+      - '*.mdx'
     rules:
       import/no-extraneous-dependencies: off
+  - files:
+      - '*.md'
+      - '*.mdx'
+    extends:
+      - plugin:mdx/recommended
+      - plugin:mdx/overrides
+    rules:
+      jsx-a11y/anchor-is-valid: off

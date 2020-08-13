@@ -1,0 +1,6 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "jounqin.vscode-mdx"
+  ]
+}

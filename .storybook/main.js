@@ -1,22 +1,16 @@
 module.exports = {
-  stories: ['../src/**/*.stories.tsx'],
+  stories: ['../**/*.stories.mdx'],
   addons: [
-    '@storybook/preset-typescript',
     '@storybook/preset-scss',
-    '@storybook/addon-docs',
     {
-      name: '@storybook/addon-storysource',
+      name: '@storybook/addon-docs',
       options: {
-        rule: {
-          test: [/\.stories\.tsx?$/],
-        },
-        loaderOptions: {
-          parser: 'typescript',
-          // eslint-disable-next-line global-require
-          prettierConfig: require('../.prettierrc.json'),
-        },
+        configureJSX: true,
+        babelOptions: {},
+        sourceLoaderOptions: null,
       },
     },
+    '@storybook/addon-storysource',
     '@storybook/addon-actions',
     '@storybook/addon-links',
     '@storybook/addon-events',

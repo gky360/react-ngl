@@ -1,7 +1,4 @@
-export const mergeParams = <T extends object>(
-  params: Partial<T>,
-  defaultParams: T
-): T => {
+export const mergeParams = <T>(params: Partial<T>, defaultParams: T): T => {
   const o: T = { ...defaultParams, ...params };
   Object.entries(defaultParams).forEach(([key, value]) => {
     if (value === undefined) {

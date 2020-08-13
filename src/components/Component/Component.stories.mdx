@@ -1,0 +1,62 @@
+import { useCallback, useMemo, useState } from 'react';
+import { Meta, Story, DocsPage } from '@storybook/addon-docs/blocks';
+import { Stage } from '../Stage/Stage';
+import { Component } from './Component';
+
+<Meta title="Components/Component" component={Component} />
+
+<DocsPage>
+
+<Story name="Usage">
+  {() => {
+    const reprList = useMemo(() => [{ type: 'cartoon' }], []);
+    return (
+      <Stage width="600px" height="400px">
+        <Component path="rcsb://4hhb" reprList={reprList} />
+      </Stage>
+    );
+  }}
+</Story>
+
+<Story name="Representations">
+  {() => {
+    const reprLists = useMemo(
+      () => ({
+        'ball+stick': [{ type: 'ball+stick' }],
+        cartoon: [{ type: 'cartoon' }],
+        'ribbon and line': [
+          { type: 'ribbon', param: { color: 'atomindex' } },
+          { type: 'line', param: { color: 'element' } },
+        ],
+        spacefill: [{ type: 'spacefill', param: { color: 'element' } }],
+        surface: [{ type: 'surface', param: { color: 'element' } }],
+      }),
+      []
+    );
+    const [reprName, setReprName] = useState('cartoon');
+    const handleReprChange = useCallback(
+      (event) => setReprName(event.target.value),
+      []
+    );
+    return (
+      <>
+        <Stage width="600px" height="400px">
+          <Component path="rcsb://4hhb" reprList={reprLists[reprName]} />
+        </Stage>
+        <select
+          name="representation"
+          value={reprName}
+          onChange={handleReprChange}
+        >
+          {Object.keys(reprLists).map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+        </select>
+      </>
+    );
+  }}
+</Story>
+
+</DocsPage>
