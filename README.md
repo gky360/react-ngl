@@ -3,6 +3,7 @@
 <!-- PROJECT SHIELDS -->
 
 [![Jobs][jobs-badge]][jobs-url]
+[![npm][npm-badge]][npm-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -157,6 +158,8 @@ Project Link: [https://github.com/gky360/react-ngl](https://github.com/gky360/re
 
 [jobs-badge]: https://github.com/gky360/react-ngl/workflows/Jobs/badge.svg
 [jobs-url]: https://github.com/gky360/react-ngl/actions
+[npm-badge]: https://badge.fury.io/js/react-ngl.svg
+[npm-url]: https://www.npmjs.com/package/react-ngl
 [contributors-shield]: https://img.shields.io/github/contributors/gky360/react-ngl.svg
 [contributors-url]: https://github.com/gky360/react-ngl/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/gky360/react-ngl.svg
