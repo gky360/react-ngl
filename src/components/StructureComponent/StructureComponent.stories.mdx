@@ -1,0 +1,55 @@
+import { useMemo, useState } from 'react';
+import { Meta, Story, DocsPage } from '@storybook/addon-docs/blocks';
+import { Stage } from '../Stage/Stage';
+import { StructureComponent } from './StructureComponent';
+import { CAMERA_STATE_NONE } from '../../utils';
+
+<Meta title="Components/StructureComponent" component={StructureComponent} />
+
+<DocsPage>
+
+<Story name="Usage">
+  {() => {
+    const reprList = useMemo(() => [{ type: 'cartoon' }], []);
+    return (
+      <Stage width="600px" height="400px">
+        <StructureComponent path="rcsb://4hhb" reprList={reprList} />
+      </Stage>
+    );
+  }}
+</Story>
+
+<Story name="Set Selection">
+  {() => {
+    const reprList = useMemo(() => [{ type: 'cartoon' }], []);
+    const [tmpSelection, setTmpSelection] = useState('');
+    const [selection, setSelection] = useState('');
+    return (
+      <>
+        <Stage width="600px" height="400px" cameraState={CAMERA_STATE_NONE}>
+          <StructureComponent
+            path="rcsb://3pqr"
+            reprList={reprList}
+            selection={selection}
+          />
+        </Stage>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            setSelection(tmpSelection);
+          }}
+        >
+          <input
+            type="text"
+            value={tmpSelection}
+            placeholder="selection e.g. 1-90/0"
+            onChange={(event) => setTmpSelection(event.target.value)}
+          />
+          <button type="submit">apply</button>
+        </form>
+      </>
+    );
+  }}
+</Story>
+
+</DocsPage>

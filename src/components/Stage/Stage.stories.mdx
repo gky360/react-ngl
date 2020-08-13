@@ -1,0 +1,149 @@
+import { useMemo, useState, useCallback } from 'react';
+import { Meta, Story, DocsPage } from '@storybook/addon-docs/blocks';
+import throttle from 'lodash/throttle';
+import { Position, Rotation, isCameraStateEqual } from '../../utils';
+import { Component } from '../Component/Component';
+import { Stage } from './Stage';
+
+<Meta title="Components/Stage" component={Stage} />
+
+<DocsPage>
+
+<Story name="Usage">
+  {() => {
+    const reprList = useMemo(() => [{ type: 'cartoon' }], []);
+    return (
+      <Stage width="600px" height="400px">
+        <Component path="rcsb://4hhb" reprList={reprList} />
+      </Stage>
+    );
+  }}
+</Story>
+
+<Story name="Capture Camera State">
+  {() => {
+    const THROTTLE_MS = 300;
+    const reprList = useMemo(() => [{ type: 'cartoon' }], []);
+    const [cameraState, setCameraState] = useState();
+    const handleCameraMove = useMemo(
+      () =>
+        throttle(
+          (nextCameraState) => setCameraState(nextCameraState),
+          THROTTLE_MS
+        ),
+      []
+    );
+    return (
+      <>
+        <Stage width="600px" height="400px" onCameraMove={handleCameraMove}>
+          <Component path="rcsb://4hhb" reprList={reprList} />
+        </Stage>
+        <h4>Camera state</h4>
+        <pre>
+          {cameraState ? JSON.stringify(cameraState, undefined, 2) : 'N/A'}
+        </pre>
+      </>
+    );
+  }}
+</Story>
+
+<Story name="Control Camera State">
+  {() => {
+    const THROTTLE_MS = 300;
+    const cameraStates = useMemo(
+      () => ({
+        'Camera State A': {
+          position: new Position(7, 28, -3),
+          rotation: new Rotation(0.8, 0.4, 0, -0.5),
+          distance: -60,
+        },
+        'Camera State B': {
+          position: new Position(-25, 50, 50),
+          rotation: new Rotation(-0.6, 0.1, 0.5, 0.7),
+          distance: -300,
+        },
+        Reset: {},
+      }),
+      []
+    );
+    const reprList = useMemo(() => [{ type: 'cartoon' }], []);
+    const [cameraStateName, setCameraStateName] = useState('Reset');
+    const [cameraState, setCameraState] = useState(
+      cameraStates[cameraStateName]
+    );
+    const handleCameraMove = useMemo(
+      () =>
+        throttle(
+          (nextCameraState) => setCameraState(nextCameraState),
+          THROTTLE_MS
+        ),
+      []
+    );
+    return (
+      <>
+        <Stage
+          width="600px"
+          height="400px"
+          cameraState={cameraState}
+          onCameraMove={handleCameraMove}
+        >
+          <Component path="rcsb://4hhb" reprList={reprList} />
+        </Stage>
+        <div>
+          {Object.keys(cameraStates).map((name) => (
+            <label key={name} htmlFor={name}>
+              <input
+                type="radio"
+                id={name}
+                name="camera-state-name"
+                value={name}
+                checked={isCameraStateEqual(cameraState, cameraStates[name])}
+                onChange={() => {
+                  setCameraStateName(name);
+                  setCameraState(cameraStates[name]);
+                }}
+              />
+              {name}
+            </label>
+          ))}
+        </div>
+        <h4>Camera state</h4>
+        <pre>
+          {cameraState ? JSON.stringify(cameraState, undefined, 2) : 'N/A'}
+        </pre>
+      </>
+    );
+  }}
+</Story>
+
+<Story name="Select Camera Type">
+  {() => {
+    const CAMERA_TYPES = ['perspective', 'orthographic', 'stereo'];
+    const [cameraType, setCameraType] = useState('perspective');
+    const stageParams = useMemo(() => ({ cameraType }), [cameraType]);
+    const reprList = useMemo(() => [{ type: 'cartoon' }], []);
+    const handleCameraTypeChange = useCallback((event) => {
+      setCameraType(event.target.value);
+    }, []);
+    return (
+      <>
+        <Stage width="600px" height="400px" params={stageParams}>
+          <Component path="rcsb://4hhb" reprList={reprList} />
+        </Stage>
+        <select
+          name="camera-type"
+          value={cameraType}
+          onChange={handleCameraTypeChange}
+        >
+          {CAMERA_TYPES.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </>
+    );
+  }}
+</Story>
+
+</DocsPage>
