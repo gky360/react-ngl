@@ -2,12 +2,12 @@ name: Jobs
 
 on:
   schedule:
-    - cron: "43 21 * * *"
+    - cron: '43 21 * * *'
   push:
     branches:
-      - "**"
+      - '**'
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+**"
+      - 'v[0-9]+.[0-9]+.[0-9]+**'
   pull_request:
 
 jobs:
@@ -96,8 +96,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.16.0
-          registry-url: https://npm.pkg.github.com/gky360
-          scope: "@gky360"
+          registry-url: https://npm.pkg.github.com
+          scope: '@gky360'
       - run: npm ci
 
       - run: npm run build
