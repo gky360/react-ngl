@@ -2,6 +2,8 @@
 
 const path = require('path');
 
+const isCI = process.env.CI === 'true';
+
 module.exports = async ({ config }) => {
   config.module.rules.unshift({
     test: /\.(ts|tsx)$/,
@@ -16,6 +18,12 @@ module.exports = async ({ config }) => {
       },
     ],
   });
+  if (isCI) {
+    // eslint-disable-next-line no-param-reassign
+    config.plugins = config.plugins.filter(
+      ({ constructor }) => constructor.name !== 'ProgressPlugin'
+    );
+  }
   config.resolve.extensions.push('.ts', '.tsx', '.d.ts');
   return config;
 };
