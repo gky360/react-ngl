@@ -15,8 +15,6 @@
     "test": "jest",
     "test:ci": "npm run test -- --verbose --ci",
     "test:watch": "npm run test -- --watch",
-    "prepare": "npm run setup-ngl --",
-    "setup-ngl": "cd modules/ngl && npm ci && npm run dts",
     "prebuild": "npm run clean --",
     "build": "tsc",
     "clean": "rm -rf ./dist",
@@ -47,6 +45,7 @@
   },
   "dependencies": {
     "@n1ru4l/use-async-effect": "^1.2.4",
+    "ngl": "2.0.0-dev.37",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "three": "^0.111.0"
@@ -88,7 +87,6 @@
     "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
     "lodash": "^4.17.19",
-    "ngl": "file:modules/ngl",
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
     "react-docgen-typescript-loader": "^3.7.2",
