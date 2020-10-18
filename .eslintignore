@@ -4,3 +4,4 @@
 /modules/
 /storybook-static/
 !/.storybook/
+/src/@types/ngl/

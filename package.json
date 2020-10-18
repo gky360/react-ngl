@@ -15,6 +15,8 @@
     "test": "jest",
     "test:ci": "npm run test -- --verbose --ci",
     "test:watch": "npm run test -- --watch",
+    "prepare": "npm run ngl-dts --",
+    "ngl-dts": "cd modules/ngl && npm ci && npx tsc --project . -d --declarationDir ../../src/@types/ngl/declarations --emitDeclarationOnly --skipLibCheck",
     "prebuild": "npm run clean --",
     "build": "tsc",
     "clean": "rm -rf ./dist",
