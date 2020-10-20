@@ -1,31 +1,31 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 // structure-component
-import { StructureRepresentationParameters } from 'ngl/declarations/representation/structure-representation';
-import { AngleRepresentationParameters } from 'ngl/declarations/representation/angle-representation';
-import { AxesRepresentationParameters } from 'ngl/declarations/representation/axes-representation';
-import { BallAndStickRepresentationParameters } from 'ngl/declarations/representation/ballandstick-representation';
-import { CartoonRepresentationParameters } from 'ngl/declarations/representation/cartoon-representation';
-import { ContactRepresentationParameters } from 'ngl/declarations/representation/contact-representation';
-import { DihedralRepresentationParameters } from 'ngl/declarations/representation/dihedral-representation';
-import { DihedralHistogramRepresentationParameters } from 'ngl/declarations/representation/dihedral-histogram-representation';
-import { DistanceRepresentationParameters } from 'ngl/declarations/representation/distance-representation';
-import { HyperballRepresentationParameters } from 'ngl/declarations/representation/hyperball-representation';
-import { LabelRepresentationParameters } from 'ngl/declarations/representation/label-representation';
-import { LineRepresentationParameters } from 'ngl/declarations/representation/line-representation';
-import { PointRepresentationParameters } from 'ngl/declarations/representation/point-representation';
-import { SurfaceRepresentationParameters } from 'ngl/declarations/representation/surface-representation';
-import { RibbonRepresentationParameters } from 'ngl/declarations/representation/ribbon-representation';
-import { RocketRepresentationParameters } from 'ngl/declarations/representation/rocket-representation';
-import { TraceRepresentationParameters } from 'ngl/declarations/representation/trace-representation';
-import { UnitcellRepresentationParameters } from 'ngl/declarations/representation/unitcell-representation';
-import { SliceRepresentationParameters } from 'ngl/declarations/representation/slice-representation';
-import { MolecularSurfaceRepresentationParameters } from 'ngl/declarations/representation/molecularsurface-representation';
-import { DotRepresentationParameters } from 'ngl/declarations/representation/dot-representation';
-import { StructureRepresentationType } from 'ngl/declarations/component/structure-component';
+import { StructureRepresentationParameters } from '../../@types/ngl/declarations/representation/structure-representation';
+import { AngleRepresentationParameters } from '../../@types/ngl/declarations/representation/angle-representation';
+import { AxesRepresentationParameters } from '../../@types/ngl/declarations/representation/axes-representation';
+import { BallAndStickRepresentationParameters } from '../../@types/ngl/declarations/representation/ballandstick-representation';
+import { CartoonRepresentationParameters } from '../../@types/ngl/declarations/representation/cartoon-representation';
+import { ContactRepresentationParameters } from '../../@types/ngl/declarations/representation/contact-representation';
+import { DihedralRepresentationParameters } from '../../@types/ngl/declarations/representation/dihedral-representation';
+import { DihedralHistogramRepresentationParameters } from '../../@types/ngl/declarations/representation/dihedral-histogram-representation';
+import { DistanceRepresentationParameters } from '../../@types/ngl/declarations/representation/distance-representation';
+import { HyperballRepresentationParameters } from '../../@types/ngl/declarations/representation/hyperball-representation';
+import { LabelRepresentationParameters } from '../../@types/ngl/declarations/representation/label-representation';
+import { LineRepresentationParameters } from '../../@types/ngl/declarations/representation/line-representation';
+import { PointRepresentationParameters } from '../../@types/ngl/declarations/representation/point-representation';
+import { SurfaceRepresentationParameters } from '../../@types/ngl/declarations/representation/surface-representation';
+import { RibbonRepresentationParameters } from '../../@types/ngl/declarations/representation/ribbon-representation';
+import { RocketRepresentationParameters } from '../../@types/ngl/declarations/representation/rocket-representation';
+import { TraceRepresentationParameters } from '../../@types/ngl/declarations/representation/trace-representation';
+import { UnitcellRepresentationParameters } from '../../@types/ngl/declarations/representation/unitcell-representation';
+import { SliceRepresentationParameters } from '../../@types/ngl/declarations/representation/slice-representation';
+import { MolecularSurfaceRepresentationParameters } from '../../@types/ngl/declarations/representation/molecularsurface-representation';
+import { DotRepresentationParameters } from '../../@types/ngl/declarations/representation/dot-representation';
+import { StructureRepresentationType } from '../../@types/ngl/declarations/component/structure-component';
 
 // surface-component
-import { SurfaceRepresentationType } from 'ngl/declarations/component/surface-component';
+import { SurfaceRepresentationType } from '../../@types/ngl/declarations/component/surface-component';
 
 // copied from
 // https://github.com/arose/ngl/blob/7bf7e3551c3433f34e9f47c97aa76cc5838e8b92/src/component/structure-component.ts#L51
