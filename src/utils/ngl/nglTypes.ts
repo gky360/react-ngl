@@ -1,15 +1,4 @@
 export * from 'ngl';
-export {
-  Matrix3,
-  Matrix4,
-  Vector2,
-  Vector3,
-  Box3,
-  Quaternion,
-  Euler,
-  Plane,
-  Color,
-} from 'three';
 export { StageParameters } from '../../@types/ngl/declarations/stage/stage';
 export { ComponentParameters } from '../../@types/ngl/declarations/component/component';
 export { StructureRepresentationType } from '../../@types/ngl/declarations/component/structure-component';
