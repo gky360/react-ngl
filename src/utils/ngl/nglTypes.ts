@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 export * from 'ngl';
 export {
   Matrix3,
@@ -12,8 +10,8 @@ export {
   Plane,
   Color,
 } from 'three';
-export type { StageParameters } from '../../@types/ngl/declarations/stage/stage';
-export type { ComponentParameters } from '../../@types/ngl/declarations/component/component';
-export type { StructureRepresentationType } from '../../@types/ngl/declarations/component/structure-component';
-export type { SurfaceRepresentationType } from '../../@types/ngl/declarations/component/surface-component';
-export type { StageLoadFileParams } from '../../@types/ngl/declarations/stage/stage';
+export { StageParameters } from '../../@types/ngl/declarations/stage/stage';
+export { ComponentParameters } from '../../@types/ngl/declarations/component/component';
+export { StructureRepresentationType } from '../../@types/ngl/declarations/component/structure-component';
+export { SurfaceRepresentationType } from '../../@types/ngl/declarations/component/surface-component';
+export { StageLoadFileParams } from '../../@types/ngl/declarations/stage/stage';
