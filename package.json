@@ -46,11 +46,13 @@
     "gitEmail": "gky360@gmail.com",
     "commitMessage": "Deploy Storybook to GitHub Pages"
   },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
   "dependencies": {
     "@n1ru4l/use-async-effect": "^1.2.4",
     "ngl": "2.0.0-dev.37",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "three": "^0.111.0"
   },
   "devDependencies": {
@@ -93,6 +95,8 @@
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
     "react-docgen-typescript-loader": "^3.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "remark-cli": "^8.0.1",
     "remark-preset-lint-recommended": "^4.0.1",
     "remark-preset-prettier": "^0.4.0",
