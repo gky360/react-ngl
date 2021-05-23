@@ -53,7 +53,7 @@
   "dependencies": {
     "@n1ru4l/use-async-effect": "^1.2.4",
     "ngl": "2.0.0-dev.37",
-    "three": "^0.111.0"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
