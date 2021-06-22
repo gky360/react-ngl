@@ -8,6 +8,7 @@ export interface StructureComponentInnerProps {
 
 export const StructureComponentInner: React.FC<StructureComponentInnerProps> = ({
   selection = '',
+  children,
 }) => {
   const component = useComponent();
   if (!(component instanceof NGL.StructureComponent)) {
@@ -20,5 +21,5 @@ export const StructureComponentInner: React.FC<StructureComponentInnerProps> = (
     component.setSelection(selection);
   }, [component, selection]);
 
-  return null;
+  return <>{children}</>;
 };
