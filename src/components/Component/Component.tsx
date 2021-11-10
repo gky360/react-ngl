@@ -73,6 +73,14 @@ export const Component: React.FC<ComponentProps> = ({
   }, [component, onLoad]);
 
   useEffect(() => {
+    return () => {
+      if (component) {
+        stage.removeComponent(component);
+      }
+    };
+  }, [component, stage]);
+
+  useEffect(() => {
     if (component) {
       const nextParams = mergeParams(params, ComponentDefaultParameters);
       if (nextParams.name !== component.parameters.name) {
