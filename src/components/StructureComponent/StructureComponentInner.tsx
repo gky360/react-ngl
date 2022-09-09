@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 import { useComponent } from '../../hooks';
 import { NGL } from '../../utils';
 
@@ -6,7 +6,7 @@ export interface StructureComponentInnerProps {
   selection?: string;
 }
 
-export const StructureComponentInner: React.FC<StructureComponentInnerProps> = ({
+export const StructureComponentInner: React.FC<PropsWithChildren<StructureComponentInnerProps>> = ({
   selection = '',
   children,
 }) => {
