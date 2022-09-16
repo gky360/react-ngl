@@ -4,6 +4,7 @@ import React, {
   useRef,
   useState,
   RefCallback,
+  PropsWithChildren
 } from 'react';
 import { StageReactContext } from '../../hooks';
 import {
@@ -25,7 +26,7 @@ export interface StageProps {
   onCameraMove?: (cameraState: Partial<CameraState>) => void;
 }
 
-export const Stage: React.FC<StageProps> = ({
+export const Stage: React.FC<PropsWithChildren<StageProps>> = ({
   children,
   width,
   height,

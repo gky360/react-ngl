@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import { ComponentProps, Component } from '../Component/Component';
 import {
   StructureComponentInner,
@@ -9,7 +9,7 @@ export interface StructureComponentProps
   extends StructureComponentInnerProps,
     ComponentProps {}
 
-export const StructureComponent: React.FC<StructureComponentProps> = ({
+export const StructureComponent: React.FC<PropsWithChildren<StructureComponentProps>> = ({
   children,
   selection,
   ...componentProps

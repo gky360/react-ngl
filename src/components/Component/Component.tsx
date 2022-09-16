@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, PropsWithChildren } from 'react';
 import useAsyncEffect from '@n1ru4l/use-async-effect';
 import { NGL, RepresentationDescriptor, mergeParams } from '../../utils';
 import { useStage, ComponentReactContext } from '../../hooks';
@@ -29,7 +29,7 @@ export interface ComponentProps {
   onLoadFailure?: (error: Error) => void;
 }
 
-export const Component: React.FC<ComponentProps> = ({
+export const Component: React.FC<PropsWithChildren<ComponentProps>> = ({
   children,
   path,
   loadFileParams,
@@ -55,8 +55,10 @@ export const Component: React.FC<ComponentProps> = ({
           | NGL.Component
           | undefined;
       } catch (error) {
-        if (onLoadFailure) {
-          onLoadFailure(error);
+        if(error instanceof Error){
+          if (onLoadFailure) {
+            onLoadFailure(error);
+          }
         }
       }
       if (nextComponent) {
